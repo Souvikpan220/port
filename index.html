@@ -54,11 +54,17 @@
   }
 
   /* ──────── NAVBAR ──────── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 20px 48px;
+   nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+
+  height: 70px;              /* ✅ FIXED HEIGHT */
+  padding: 0 48px;           /* ❌ remove vertical padding */
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   }
   nav::before {
     content: '';
@@ -748,6 +754,12 @@
 .skill-tag.tag-visible:hover {
   transform: translateY(-3px) scale(1.04);
 }
+ .logo-img {
+  height: 100px;   /* adjust size */
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
 
 </style>
 </head>
@@ -762,7 +774,9 @@
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">S<span>&</span>S</div>
+  <div class="nav-logo">
+  <img src="https://i.pinimg.com/736x/5a/57/9e/5a579e10489f33eaae2f1de49dc9f9c4.jpg" class="logo-img">
+</div>
   <div class="nav-links">
     <a href="#home" class="active">Home</a>
     <a href="#about">About</a>
@@ -1008,7 +1022,7 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">Souvik & Spandan</div>
+  <div class="footer-logo">SSync</div>
   <div class="footer-copy">© 2026 — Coded with ❤ in Kolkata</div>
   <div class="footer-links">
     <a href="https://github.com" target="_blank">GitHub</a>
