@@ -770,6 +770,290 @@
   border: 2px solid rgba(255,255,255,0.1);
 }
 
+/* ──────── ADDED: Contact toggle ──────── */
+.contact-toggle {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 0 auto 40px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 5px;
+  width: fit-content;
+  position: relative;
+  z-index: 1;
+}
+.toggle-btn {
+  background: transparent;
+  border: none;
+  border-radius: 100px;
+  padding: 9px 22px;
+  font-size: 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: none;
+  transition: all 0.22s;
+}
+.toggle-btn.active {
+  background: rgba(255,255,255,0.10);
+  color: var(--text);
+}
+.toggle-btn:hover:not(.active) { color: var(--text); }
+
+/* ──────── ADDED: Scheduler layout ──────── */
+.scheduler-wrap {
+  max-width: 960px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  text-align: left;
+}
+.scheduler-panel {
+  display: grid;
+  grid-template-columns: 220px 1fr 180px;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.02);
+}
+
+/* Left info panel */
+.scheduler-info {
+  border-right: 1px solid var(--border);
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+}
+.scheduler-avatar {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: rgba(168,85,247,0.15);
+  color: var(--accent-purple);
+  font-weight: 600;
+  font-size: 15px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 16px;
+}
+.scheduler-info-name {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.scheduler-meeting-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 22px;
+  color: var(--text);
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+.scheduler-meta-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+.scheduler-meta-item {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.scheduler-meta-item svg { flex-shrink: 0; opacity: 0.6; }
+.scheduler-divider {
+  height: 1px;
+  background: var(--border);
+  margin-bottom: 16px;
+}
+.scheduler-note {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* Calendar panel */
+.scheduler-calendar {
+  padding: 28px 24px;
+  border-right: 1px solid var(--border);
+}
+.cal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 20px;
+}
+.cal-month-label {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+}
+.cal-nav {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  border-radius: 8px;
+  width: 30px; height: 30px;
+  font-size: 18px;
+  cursor: none;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+  line-height: 1;
+  font-family: inherit;
+}
+.cal-nav:hover { color: var(--text); border-color: rgba(255,255,255,0.25); }
+.cal-weekdays {
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+}
+.cal-day {
+  aspect-ratio: 1;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px;
+  border-radius: 8px;
+  cursor: none;
+  color: var(--text);
+  transition: all 0.18s;
+  border: 1px solid transparent;
+}
+.cal-day:hover:not(.cal-disabled):not(.cal-empty):not(.cal-selected) {
+  background: rgba(168,85,247,0.12);
+  border-color: rgba(168,85,247,0.3);
+  color: #c084fc;
+}
+.cal-day.cal-selected {
+  background: rgba(168,85,247,0.2);
+  border-color: rgba(168,85,247,0.6);
+  color: #c084fc;
+  font-weight: 500;
+}
+.cal-day.cal-today:not(.cal-selected) {
+  border-color: rgba(255,255,255,0.15);
+  font-weight: 500;
+}
+.cal-day.cal-disabled {
+  color: rgba(255,255,255,0.18);
+  cursor: not-allowed;
+}
+.cal-day.cal-empty { pointer-events: none; }
+
+/* Time slots panel */
+.scheduler-slots {
+  padding: 28px 16px;
+  overflow-y: auto;
+  max-height: 420px;
+}
+.slots-placeholder {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  height: 100%;
+  min-height: 200px;
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.6;
+}
+.slots-date-label {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+.slots-grid { display: flex; flex-direction: column; gap: 6px; }
+.slot-btn {
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 13px;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  cursor: none;
+  text-align: center;
+  transition: all 0.18s;
+}
+.slot-btn:hover {
+  background: rgba(168,85,247,0.12);
+  border-color: rgba(168,85,247,0.4);
+  color: #c084fc;
+  transform: translateY(-1px);
+}
+
+/* Slot confirm overlay */
+.slot-confirm-panel {
+  position: absolute; inset: 0;
+  background: rgba(8,8,8,0.94);
+  border-radius: 20px;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 10;
+  backdrop-filter: blur(6px);
+}
+.slot-confirm-inner {
+  max-width: 440px;
+  width: 100%;
+  padding: 32px 28px;
+  text-align: left;
+}
+.slot-confirm-back {
+  background: none; border: none;
+  color: var(--muted); font-size: 13px;
+  cursor: none; font-family: 'DM Sans', sans-serif;
+  padding: 0; margin-bottom: 20px;
+  transition: color 0.2s;
+}
+.slot-confirm-back:hover { color: var(--text); }
+.slot-confirm-heading {
+  font-family: 'Instrument Serif', serif;
+  font-size: 26px; margin-bottom: 8px;
+}
+.slot-confirm-detail {
+  font-size: 14px; color: var(--muted);
+  background: rgba(168,85,247,0.07);
+  border: 1px solid rgba(168,85,247,0.2);
+  border-radius: 10px;
+  padding: 12px 14px;
+  line-height: 1.6;
+}
+
+/* Booking success */
+.booking-confirm {
+  border-radius: 20px;
+  padding: 60px 32px;
+  text-align: center;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.02);
+}
+.booking-confirm-icon {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: rgba(45,212,191,0.12);
+  border: 1px solid rgba(45,212,191,0.3);
+  color: #2dd4bf;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px;
+}
+.booking-confirm-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 32px; margin-bottom: 8px;
+}
+.booking-confirm-sub { font-size: 15px; color: var(--text); margin-bottom: 6px; }
+.booking-confirm-note { font-size: 13px; color: var(--muted); }
+
+/* Responsive scheduler */
+@media (max-width: 768px) {
+  .scheduler-panel {
+    grid-template-columns: 1fr;
+  }
+  .scheduler-info { border-right: none; border-bottom: 1px solid var(--border); }
+  .scheduler-calendar { border-right: none; border-bottom: 1px solid var(--border); }
+  .scheduler-slots { max-height: none; }
+  .slots-grid { flex-direction: row; flex-wrap: wrap; }
+  .slot-btn { width: auto; flex: 0 0 calc(50% - 3px); }
+}
+
 </style>
 </head>
 <body>
@@ -1007,9 +1291,23 @@
   <div class="contact-glow"></div>
   <h2 class="contact-title reveal">Get In Touch<span class="dot">.</span></h2>
   <p class="contact-sub reveal">
-    Get in touch or shoot us an email directly on <strong>ssyncsupport@gmail.com</strong>
+    Send us a message or book a call — whatever works best for you.
   </p>
-  <div class="contact-form reveal">
+
+  <!-- === ADDED: Toggle switcher === -->
+  <div class="contact-toggle reveal" id="contact-toggle">
+    <button class="toggle-btn" id="btn-message" onclick="switchTab('message')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:middle;margin-right:6px"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Send a Message
+    </button>
+    <button class="toggle-btn active" id="btn-book" onclick="switchTab('book')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:middle;margin-right:6px"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Book a Call
+    </button>
+  </div>
+
+  <!-- === EXISTING: Contact form (unchanged logic) === -->
+  <div class="contact-form reveal" id="tab-message" style="display:none;">
     <div class="form-group">
       <label class="form-label">Name</label>
       <input type="text" id="name" class="form-input" placeholder="Your name" />
@@ -1026,6 +1324,94 @@
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
       Send Message
     </button>
+  </div>
+
+  <!-- === ADDED: Book a Call scheduler === -->
+  <div class="scheduler-wrap reveal" id="tab-book">
+    <div class="scheduler-panel">
+
+      <!-- Left: Meeting info -->
+      <div class="scheduler-info">
+        <div class="scheduler-avatar">S&amp;S</div>
+        <div class="scheduler-info-name">Souvik &amp; Spandan</div>
+        <div class="scheduler-meeting-title">30 Min Meeting</div>
+        <div class="scheduler-meta-list">
+          <div class="scheduler-meta-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            30 minutes
+          </div>
+          <div class="scheduler-meta-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l-4 4l6 6l4-16l-16 4l6 6l-4 4"/></svg>
+            Google Meet
+          </div>
+          <div class="scheduler-meta-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            Asia/Kolkata
+          </div>
+        </div>
+        <div class="scheduler-divider"></div>
+        <p class="scheduler-note">Pick a date and time that works for you. We'll send a Google Meet invite to your email.</p>
+      </div>
+
+      <!-- Center: Calendar -->
+      <div class="scheduler-calendar" id="scheduler-calendar">
+        <div class="cal-header">
+          <button class="cal-nav" id="cal-prev" onclick="calNav(-1)">&#8249;</button>
+          <span class="cal-month-label" id="cal-month-label"></span>
+          <button class="cal-nav" id="cal-next" onclick="calNav(1)">&#8250;</button>
+        </div>
+        <div class="cal-weekdays">
+          <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+        </div>
+        <div class="cal-grid" id="cal-grid"></div>
+      </div>
+
+      <!-- Right: Time slots -->
+      <div class="scheduler-slots" id="scheduler-slots">
+        <div class="slots-placeholder" id="slots-placeholder">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:10px"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Select a date<br>to see available slots</span>
+        </div>
+        <div id="slots-list" style="display:none;">
+          <div class="slots-date-label" id="slots-date-label"></div>
+          <div class="slots-grid" id="slots-grid"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Booking confirmation modal area -->
+    <div class="booking-confirm" id="booking-confirm" style="display:none;">
+      <div class="booking-confirm-inner">
+        <div class="booking-confirm-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="booking-confirm-title">You're all set!</div>
+        <div class="booking-confirm-sub" id="booking-confirm-sub"></div>
+        <div class="booking-confirm-note">A Google Meet invite will be sent to your email shortly.</div>
+        <button class="btn-send" style="max-width:260px;margin:24px auto 0" onclick="resetBooking()">Book Another Time</button>
+      </div>
+    </div>
+
+    <!-- Slot confirm panel -->
+    <div class="slot-confirm-panel" id="slot-confirm-panel" style="display:none;">
+      <div class="slot-confirm-inner">
+        <button class="slot-confirm-back" onclick="closeSlotConfirm()">&#8592; Back</button>
+        <div class="slot-confirm-heading">Confirm your booking</div>
+        <div class="slot-confirm-detail" id="slot-confirm-detail"></div>
+        <div class="form-group" style="margin-top:20px">
+          <label class="form-label">Your Name</label>
+          <input type="text" id="book-name" class="form-input" placeholder="Your name" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email (for invite)</label>
+          <input type="email" id="book-email" class="form-input" placeholder="your@email.com" />
+        </div>
+        <button class="btn-send" style="margin-top:8px" onclick="confirmBooking()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Confirm Booking
+        </button>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1296,63 +1682,59 @@ drawFlower();
 async function handleSend(e) {
   e.preventDefault();
 
-  const btn = e.currentTarget;
-
   const name = document.getElementById("name").value;
   const email = document.getElementById("email").value;
-  const messageText = document.getElementById("message").value;
-
-  // Basic validation
-  if (!name || !email || !messageText) {
-    alert("Please fill all fields");
-    return;
-  }
-
-  const payload = {
-    content: `📩 **New Inquiry Received**
-    
-👤 Name: ${name}
-📧 Email: ${email}
-
-💬 Message:
-${messageText}
-
-🕒 Time: ${new Date().toLocaleString()}
-🌐 Page: ${window.location.href}`
-  };
+  const message = document.getElementById("message").value;
 
   try {
     await fetch("/api/contact", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({
-    name,
-    email,
-    message: messageText,
-    page: window.location.href
-  })
-});
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        message,
+        page: window.location.href
+      })
+    });
 
-    // Success UI
-    btn.innerHTML = "✓ Sent Successfully!";
-    btn.style.background = "#2dd4bf";
-    btn.style.color = "#111";
-
-    // Clear form
-    document.getElementById("name").value = "";
-    document.getElementById("email").value = "";
-    document.getElementById("message").value = "";
-
-    setTimeout(() => {
-      btn.innerHTML = "Send Message";
-      btn.style.background = "var(--text)";
-    }, 3000);
+    alert("Message sent 🚀");
 
   } catch (err) {
-    alert("Failed to send message. Try again.");
-    console.log(err);
+    alert("Failed to send message");
+  }
+}
+
+async function confirmBooking() {
+  const name = document.getElementById("book-name").value;
+  const email = document.getElementById("book-email").value;
+
+  // You already have selected date + time in your UI
+  const date = selectedDateString;   // make sure this exists
+  const time = selectedTimeString;   // make sure this exists
+
+  try {
+    await fetch("/api/book", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        date,
+        time
+      })
+    });
+
+    // show success UI (already exists in your code)
+    document.getElementById("booking-confirm").style.display = "block";
+    document.querySelector(".scheduler-panel").style.display = "none";
+
+  } catch (err) {
+    alert("Booking failed");
   }
 }
 
@@ -1392,6 +1774,215 @@ function typeEffect() {
 }
 
 typeEffect();
+</script>
+
+<script>
+/* ──────── ADDED: Tab switcher ──────── */
+function switchTab(tab) {
+  const msgPanel = document.getElementById('tab-message');
+  const bookPanel = document.getElementById('tab-book');
+  const btnMsg = document.getElementById('btn-message');
+  const btnBook = document.getElementById('btn-book');
+  if (tab === 'message') {
+    msgPanel.style.display = '';
+    bookPanel.style.display = 'none';
+    btnMsg.classList.add('active');
+    btnBook.classList.remove('active');
+  } else {
+    msgPanel.style.display = 'none';
+    bookPanel.style.display = '';
+    btnMsg.classList.remove('active');
+    btnBook.classList.add('active');
+  }
+}
+
+/* ──────── ADDED: Calendar logic ──────── */
+let calYear, calMonth, selectedDate = null, selectedSlot = null;
+
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const SHORT_MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+function initCalendar() {
+  const now = new Date();
+  calYear = now.getFullYear();
+  calMonth = now.getMonth();
+  renderCalendar();
+}
+
+function calNav(dir) {
+  calMonth += dir;
+  if (calMonth > 11) { calMonth = 0; calYear++; }
+  if (calMonth < 0) { calMonth = 11; calYear--; }
+  renderCalendar();
+}
+
+function renderCalendar() {
+  document.getElementById('cal-month-label').textContent = MONTHS[calMonth] + ' ' + calYear;
+  const grid = document.getElementById('cal-grid');
+  grid.innerHTML = '';
+
+  const firstDay = new Date(calYear, calMonth, 1).getDay();
+  const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+  const today = new Date();
+  today.setHours(0,0,0,0);
+
+  for (let i = 0; i < firstDay; i++) {
+    const empty = document.createElement('div');
+    empty.className = 'cal-day cal-empty';
+    grid.appendChild(empty);
+  }
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const date = new Date(calYear, calMonth, d);
+    date.setHours(0,0,0,0);
+    const el = document.createElement('div');
+    el.className = 'cal-day';
+    el.textContent = d;
+
+    const isToday = date.getTime() === today.getTime();
+    const isPast = date < today;
+    const isWeekend = date.getDay() === 0 || date.getDay() === 6;
+    const dateStr = calYear + '-' + (calMonth+1) + '-' + d;
+
+    if (isToday) el.classList.add('cal-today');
+    if (isPast || isWeekend) {
+      el.classList.add('cal-disabled');
+    } else {
+      el.onclick = () => selectDate(dateStr, d, calMonth, calYear, el);
+      if (selectedDate === dateStr) el.classList.add('cal-selected');
+    }
+    grid.appendChild(el);
+  }
+
+  // Disable prev nav if already at current month
+  const now = new Date();
+  document.getElementById('cal-prev').disabled = (calYear === now.getFullYear() && calMonth === now.getMonth());
+}
+
+function selectDate(dateStr, day, month, year, el) {
+  selectedDate = dateStr;
+  document.querySelectorAll('.cal-day.cal-selected').forEach(e => e.classList.remove('cal-selected'));
+  el.classList.add('cal-selected');
+  renderSlots(day, month, year);
+}
+
+function renderSlots(day, month, year) {
+  const slotTimes = ['9:00 AM','9:30 AM','10:00 AM','10:30 AM','11:00 AM','11:30 AM','2:00 PM','2:30 PM','3:00 PM','3:30 PM','4:00 PM','4:30 PM'];
+  document.getElementById('slots-placeholder').style.display = 'none';
+  document.getElementById('slots-list').style.display = '';
+  document.getElementById('slots-date-label').textContent = SHORT_MONTHS[month] + ' ' + day + ', ' + year;
+
+  const grid = document.getElementById('slots-grid');
+  grid.innerHTML = '';
+  slotTimes.forEach(time => {
+    const btn = document.createElement('button');
+    btn.className = 'slot-btn';
+    btn.textContent = time;
+    btn.onclick = () => openSlotConfirm(time, day, month, year);
+    grid.appendChild(btn);
+  });
+}
+
+function openSlotConfirm(time, day, month, year) {
+  selectedSlot = { time, day, month, year };
+  document.getElementById('slot-confirm-detail').innerHTML =
+    '<strong style="color:var(--text)">30 Min Meeting</strong> — Google Meet<br>' +
+    SHORT_MONTHS[month] + ' ' + day + ', ' + year + ' &nbsp;·&nbsp; ' + time + ' (IST)';
+  document.getElementById('slot-confirm-panel').style.display = 'flex';
+}
+
+function closeSlotConfirm() {
+  document.getElementById('slot-confirm-panel').style.display = 'none';
+}
+
+async function confirmBooking() {
+  const name = document.getElementById('book-name').value.trim();
+  const email = document.getElementById('book-email').value.trim();
+  if (!name || !email) { alert('Please fill in your name and email.'); return; }
+
+  const { time, day, month, year } = selectedSlot;
+  const dateStr = SHORT_MONTHS[month] + ' ' + day + ', ' + year;
+
+  try {
+    await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name,
+        email,
+        message: `📅 BOOKING REQUEST\nDate: ${dateStr}\nTime: ${time} IST\nMeeting: 30 Min via Google Meet`,
+        page: window.location.href
+      })
+    });
+  } catch(e) { console.log(e); }
+
+  document.getElementById('slot-confirm-panel').style.display = 'none';
+  document.getElementById('scheduler-panel') && null;
+  document.querySelector('.scheduler-panel').style.display = 'none';
+  document.getElementById('booking-confirm-sub').textContent =
+    dateStr + ' at ' + time + ' (IST) — Google Meet';
+  document.getElementById('booking-confirm').style.display = '';
+}
+
+function resetBooking() {
+  selectedDate = null;
+  selectedSlot = null;
+  document.querySelector('.scheduler-panel').style.display = '';
+  document.getElementById('booking-confirm').style.display = 'none';
+  document.getElementById('slots-placeholder').style.display = 'flex';
+  document.getElementById('slots-list').style.display = 'none';
+  document.getElementById('book-name').value = '';
+  document.getElementById('book-email').value = '';
+  renderCalendar();
+}
+
+initCalendar();
+
+let selectedDateString = "";
+let selectedTimeString = "";
+
+// when user clicks date
+function selectDate(date) {
+  selectedDateString = date;
+}
+
+// when user clicks time
+function selectTime(time) {
+  selectedTimeString = time;
+}
+
+// FINAL BOOKING FUNCTION
+async function confirmBooking() {
+  const name = document.getElementById("book-name").value;
+  const email = document.getElementById("book-email").value;
+
+  if (!selectedDateString || !selectedTimeString) {
+    alert("Select date & time first");
+    return;
+  }
+
+  try {
+    await fetch("/api/book", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        date: selectedDateString,
+        time: selectedTimeString
+      })
+    });
+
+    document.getElementById("booking-confirm").style.display = "block";
+    document.getElementById("slot-confirm-panel").style.display = "none";
+
+  } catch (err) {
+    alert("Booking failed");
+  }
+}
+
 </script>
 
 <script src="script.js"></script>
