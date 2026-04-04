@@ -15,8 +15,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // ── Replace with your actual Discord webhook URLs ──
-const DISCORD_BOOKING_WEBHOOK = 'https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN';
-const DISCORD_CONTACT_WEBHOOK = 'https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN';
+const DISCORD_BOOKING_WEBHOOK = 'https://discord.com/api/webhooks/1489892593604100147/G8WjrmpiqN_1W0mg9An9jFTw0T9k_7blm1Pj4uGHSo5v62bYsKENd8f4xO0_5Eqz-AGB';
+const DISCORD_CONTACT_WEBHOOK = 'https://discord.com/api/webhooks/1489584383613468683/pI3KgBif6TnZlvcZx15HcwhZbKfS8to-xW_Q3dPwte4tV0tlvJ0rjyvo7qDSyoBq5mB2';
 // You can use the same webhook for both if you prefer
 
 // ── Middleware ──
