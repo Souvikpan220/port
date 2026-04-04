@@ -1296,18 +1296,18 @@
 
   <!-- === ADDED: Toggle switcher === -->
   <div class="contact-toggle reveal" id="contact-toggle">
-    <button class="toggle-btn active" id="btn-message" onclick="switchTab('message')">
+    <button class="toggle-btn" id="btn-message" onclick="switchTab('message')">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:middle;margin-right:6px"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
       Send a Message
     </button>
-    <button class="toggle-btn" id="btn-book" onclick="switchTab('book')">
+    <button class="toggle-btn active" id="btn-book" onclick="switchTab('book')">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:middle;margin-right:6px"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
       Book a Call
     </button>
   </div>
 
   <!-- === EXISTING: Contact form (unchanged logic) === -->
-  <div class="contact-form reveal" id="tab-message">
+  <div class="contact-form reveal" id="tab-message" style="display:none;">
     <div class="form-group">
       <label class="form-label">Name</label>
       <input type="text" id="name" class="form-input" placeholder="Your name" />
@@ -1327,7 +1327,7 @@
   </div>
 
   <!-- === ADDED: Book a Call scheduler === -->
-  <div class="scheduler-wrap reveal" id="tab-book" style="display:none;">
+  <div class="scheduler-wrap reveal" id="tab-book">
     <div class="scheduler-panel">
 
       <!-- Left: Meeting info -->
@@ -1681,64 +1681,47 @@ drawFlower();
 
 async function handleSend(e) {
   e.preventDefault();
-
   const btn = e.currentTarget;
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const messageText = document.getElementById("message").value.trim();
 
-  const name = document.getElementById("name").value;
-  const email = document.getElementById("email").value;
-  const messageText = document.getElementById("message").value;
-
-  // Basic validation
   if (!name || !email || !messageText) {
     alert("Please fill all fields");
     return;
   }
 
-  const payload = {
-    content: `📩 **New Inquiry Received**
-    
-👤 Name: ${name}
-📧 Email: ${email}
-
-💬 Message:
-${messageText}
-
-🕒 Time: ${new Date().toLocaleString()}
-🌐 Page: ${window.location.href}`
-  };
+  btn.innerHTML = 'Sending...';
+  btn.disabled = true;
 
   try {
-    await fetch("/api/contact", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({
-    name,
-    email,
-    message: messageText,
-    page: window.location.href
-  })
-});
+    const res = await fetch("/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email, message: messageText })
+    });
 
-    // Success UI
+    if (!res.ok) throw new Error('Server error');
+
     btn.innerHTML = "✓ Sent Successfully!";
     btn.style.background = "#2dd4bf";
     btn.style.color = "#111";
-
-    // Clear form
     document.getElementById("name").value = "";
     document.getElementById("email").value = "";
     document.getElementById("message").value = "";
 
     setTimeout(() => {
-      btn.innerHTML = "Send Message";
+      btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send Message';
       btn.style.background = "var(--text)";
+      btn.style.color = "#111";
+      btn.disabled = false;
     }, 3000);
 
   } catch (err) {
     alert("Failed to send message. Try again.");
-    console.log(err);
+    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send Message';
+    btn.disabled = false;
+    console.error(err);
   }
 }
 
@@ -1907,25 +1890,31 @@ async function confirmBooking() {
   const { time, day, month, year } = selectedSlot;
   const dateStr = SHORT_MONTHS[month] + ' ' + day + ', ' + year;
 
+  const confirmBtn = document.getElementById('slot-confirm-panel').querySelector('.btn-send');
+  confirmBtn.innerHTML = 'Sending...';
+  confirmBtn.disabled = true;
+
   try {
-    await fetch('/api/contact', {
+    const res = await fetch('/book', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name,
-        email,
-        message: `📅 BOOKING REQUEST\nDate: ${dateStr}\nTime: ${time} IST\nMeeting: 30 Min via Google Meet`,
-        page: window.location.href
-      })
+      body: JSON.stringify({ name, email, date: dateStr, time: time + ' IST' })
     });
-  } catch(e) { console.log(e); }
 
-  document.getElementById('slot-confirm-panel').style.display = 'none';
-  document.getElementById('scheduler-panel') && null;
-  document.querySelector('.scheduler-panel').style.display = 'none';
-  document.getElementById('booking-confirm-sub').textContent =
-    dateStr + ' at ' + time + ' (IST) — Google Meet';
-  document.getElementById('booking-confirm').style.display = '';
+    if (!res.ok) throw new Error('Server error');
+
+    document.getElementById('slot-confirm-panel').style.display = 'none';
+    document.querySelector('.scheduler-panel').style.display = 'none';
+    document.getElementById('booking-confirm-sub').textContent =
+      dateStr + ' at ' + time + ' (IST) — Google Meet';
+    document.getElementById('booking-confirm').style.display = '';
+  } catch (e) {
+    alert('Failed to confirm booking. Please try again.');
+    console.error(e);
+  } finally {
+    confirmBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Confirm Booking';
+    confirmBtn.disabled = false;
+  }
 }
 
 function resetBooking() {
