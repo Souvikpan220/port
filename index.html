@@ -1983,6 +1983,110 @@ async function confirmBooking() {
   }
 }
 
+ // ===== CALENDAR LOGIC START =====
+
+let currentDate = new Date();
+let selectedDate = null;
+let selectedTime = "";
+
+function renderCalendar() {
+  const grid = document.getElementById("cal-grid");
+  const label = document.getElementById("cal-month-label");
+
+  if (!grid || !label) return;
+
+  grid.innerHTML = "";
+
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth();
+
+  const firstDay = new Date(year, month, 1).getDay();
+  const lastDate = new Date(year, month + 1, 0).getDate();
+
+  label.textContent = currentDate.toLocaleString("default", {
+    month: "long",
+    year: "numeric"
+  });
+
+  for (let i = 0; i < firstDay; i++) {
+    const div = document.createElement("div");
+    div.className = "cal-day cal-empty";
+    grid.appendChild(div);
+  }
+
+  for (let d = 1; d <= lastDate; d++) {
+    const div = document.createElement("div");
+    div.className = "cal-day";
+    div.textContent = d;
+
+    div.onclick = () => selectDate(d);
+
+    grid.appendChild(div);
+  }
+}
+
+function calNav(direction) {
+  currentDate.setMonth(currentDate.getMonth() + direction);
+  renderCalendar();
+}
+
+function selectDate(day) {
+  selectedDate = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth(),
+    day
+  );
+
+  document.querySelectorAll(".cal-day").forEach(el => {
+    el.classList.remove("cal-selected");
+    if (el.textContent == day) el.classList.add("cal-selected");
+  });
+
+  showSlots();
+}
+
+function showSlots() {
+  const placeholder = document.getElementById("slots-placeholder");
+  const list = document.getElementById("slots-list");
+  const grid = document.getElementById("slots-grid");
+  const label = document.getElementById("slots-date-label");
+
+  placeholder.style.display = "none";
+  list.style.display = "block";
+
+  label.textContent = selectedDate.toDateString();
+  grid.innerHTML = "";
+
+  const times = ["10:00 AM", "11:00 AM", "12:00 PM", "2:00 PM", "4:00 PM"];
+
+  times.forEach(time => {
+    const btn = document.createElement("button");
+    btn.className = "slot-btn";
+    btn.textContent = time;
+
+    btn.onclick = () => openConfirm(time);
+
+    grid.appendChild(btn);
+  });
+}
+
+function openConfirm(time) {
+  selectedTime = time;
+
+  document.getElementById("slot-confirm-panel").style.display = "flex";
+  document.getElementById("slot-confirm-detail").innerText =
+    selectedDate.toDateString() + " at " + time;
+}
+
+function closeSlotConfirm() {
+  document.getElementById("slot-confirm-panel").style.display = "none";
+}
+
+// INIT
+renderCalendar();
+
+// ===== CALENDAR LOGIC END =====
+
 </script>
 
 <script src="script.js"></script>
