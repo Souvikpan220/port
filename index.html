@@ -1159,10 +1159,24 @@
     </a>
   </div>
 
-  <div class="project-thumb p1">
-  <img src="projectss.png" alt="Project Screenshot"
-       style="width:100%; height:100%; object-fit:cover;">
-</div>
+  <!-- ✅ IMPORTANT GRID WRAPPER -->
+  <div class="projects-grid">
+
+    <!-- 🔥 FEATURED PROJECT -->
+    <div class="project-card featured reveal" onmousemove="trackCardMouse(event,this)">
+      
+      <div class="project-thumb p1" style="position:relative; overflow:hidden;">
+        <img src="projectss.png"
+             style="width:100%; height:100%; object-fit:cover; transition:0.4s;">
+        
+        <!-- overlay -->
+        <div style="
+          position:absolute;
+          inset:0;
+          background:linear-gradient(to top, rgba(8,8,8,0.6), transparent 60%);
+        "></div>
+      </div>
+
       <div class="project-info">
         <div class="project-tags">
           <span class="project-tag">Next.js</span>
@@ -1170,61 +1184,69 @@
           <span class="project-tag">PostgreSQL</span>
           <span class="project-tag">Prisma</span>
         </div>
+
         <div class="project-name">CollabFlow — Real-time Workspace</div>
-        <div class="project-desc">A Notion-meets-Figma collaborative workspace with real-time editing, project management, and AI-assisted writing. Built with WebSockets and optimistic UI updates.</div>
-        <a href="https://business-agency-website-rust.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-link grad-underline">
-  View Project →
-</a>
+
+        <div class="project-desc">
+          A Notion-meets-Figma collaborative workspace with real-time editing,
+          project management, and AI-assisted writing.
+        </div>
+
+        <a href="https://business-agency-website-rust.vercel.app/"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="project-link grad-underline">
+          View Project →
+        </a>
       </div>
     </div>
 
+    <!-- 🟢 PROJECT 2 -->
     <div class="project-card reveal" onmousemove="trackCardMouse(event,this)">
-      <div class="project-thumb p2">
-        <div class="project-thumb-inner" style="display:flex;align-items:center;justify-content:center">
-          <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
-            <rect x="8" y="8" width="48" height="48" rx="8" stroke="rgba(52,211,153,0.4)" stroke-width="1"/>
-            <rect x="16" y="24" width="32" height="4" rx="2" fill="rgba(52,211,153,0.3)"/>
-            <rect x="16" y="34" width="20" height="4" rx="2" fill="rgba(52,211,153,0.2)"/>
-            <circle cx="48" cy="20" r="8" fill="rgba(52,211,153,0.2)" stroke="rgba(52,211,153,0.5)" stroke-width="1"/>
-            <text x="48" y="24" text-anchor="middle" fill="rgba(52,211,153,0.8)" font-size="10">₹</text>
-          </svg>
-        </div>
-      </div>
+      <div class="project-thumb p2"></div>
+
       <div class="project-info">
         <div class="project-tags">
           <span class="project-tag">React</span>
           <span class="project-tag">Node.js</span>
           <span class="project-tag">MongoDB</span>
         </div>
+
         <div class="project-name">FinTrack — Expense Manager</div>
-        <div class="project-desc">Personal finance tracker with smart categorization, visual analytics, and budget alerts.</div>
-        <a href="#" class="project-link grad-underline">View Project →</a>
+
+        <div class="project-desc">
+          Personal finance tracker with smart categorization, visual analytics, and budget alerts.
+        </div>
+
+        <a href="#" class="project-link grad-underline">
+          View Project →
+        </a>
       </div>
     </div>
 
+    <!-- 🔵 PROJECT 3 -->
     <div class="project-card reveal" onmousemove="trackCardMouse(event,this)">
-      <div class="project-thumb p3">
-        <div class="project-thumb-inner">
-          <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
-            <path d="M32 8L56 20V44L32 56L8 44V20L32 8Z" stroke="rgba(99,102,241,0.5)" stroke-width="1" fill="rgba(99,102,241,0.1)"/>
-            <path d="M32 8L32 56" stroke="rgba(99,102,241,0.3)" stroke-width="0.5"/>
-            <path d="M8 20L56 44" stroke="rgba(99,102,241,0.3)" stroke-width="0.5"/>
-            <path d="M56 20L8 44" stroke="rgba(99,102,241,0.3)" stroke-width="0.5"/>
-            <circle cx="32" cy="32" r="6" fill="rgba(99,102,241,0.4)"/>
-          </svg>
-        </div>
-      </div>
+      <div class="project-thumb p3"></div>
+
       <div class="project-info">
         <div class="project-tags">
           <span class="project-tag">Expo</span>
           <span class="project-tag">TypeScript</span>
           <span class="project-tag">Clerk</span>
         </div>
+
         <div class="project-name">StudyMate — Mobile App</div>
-        <div class="project-desc">Cross-platform study companion with flashcards, Pomodoro timer, and progress tracking.</div>
-        <a href="#" class="project-link grad-underline">View Project →</a>
+
+        <div class="project-desc">
+          Cross-platform study companion with flashcards, Pomodoro timer, and progress tracking.
+        </div>
+
+        <a href="#" class="project-link grad-underline">
+          View Project →
+        </a>
       </div>
     </div>
+
   </div>
 </section>
 
