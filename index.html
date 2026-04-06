@@ -339,8 +339,8 @@
     transform: translateY(-6px);
     box-shadow: 0 20px 50px rgba(0,0,0,0.45), 0 0 0 1px rgba(168,85,247,0.1);
   }
-  .project-card.featured {
-    grid-column: 1 / -1;
+   .project-card.featured {
+   grid-column: auto;
   }
   .project-thumb {
     width: 100%;
@@ -1163,7 +1163,7 @@
   <div class="projects-grid">
 
     <!-- 🔥 FEATURED PROJECT -->
-    <div class="project-card featured reveal" onmousemove="trackCardMouse(event,this)">
+    <div class="project-card reveal">
       
       <div class="project-thumb p1" style="position:relative; overflow:hidden;">
         <img src="projectss.png"
@@ -1245,6 +1245,29 @@
         </a>
       </div>
     </div>
+
+   <!-- 🟠 PROJECT 4 -->
+<div class="project-card reveal" onmousemove="trackCardMouse(event,this)">
+  <div class="project-thumb p4"></div>
+
+  <div class="project-info">
+    <div class="project-tags">
+      <span class="project-tag">Next.js</span>
+      <span class="project-tag">Firebase</span>
+      <span class="project-tag">Stripe</span>
+    </div>
+
+    <div class="project-name">Your Project Name</div>
+
+    <div class="project-desc">
+      Short description of your project goes here.
+    </div>
+
+    <a href="#" class="project-link grad-underline">
+      View Project →
+    </a>
+  </div>
+</div>
 
   </div>
 </section>
